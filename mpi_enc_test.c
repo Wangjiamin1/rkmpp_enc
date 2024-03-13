@@ -1020,6 +1020,8 @@ int enc_test_multi(MpiEncTestArgs *cmd, const char *name)
         ctxs[i].name = name;
         ctxs[i].chn = i;
 
+        // enc_test(&ctxs[i]);
+
         ret = pthread_create(&ctxs[i].thd, NULL, enc_test, &ctxs[i]);
         if (ret)
         {
@@ -1069,8 +1071,9 @@ int main(int argc, char **argv)
 
     // parse the cmd option
     ret = mpi_enc_test_cmd_update_by_args(cmd, argc, argv);
-    if (ret)
-        goto DONE;
+
+    // if (ret)
+    //     goto DONE;
 
     mpi_enc_test_cmd_show_opt(cmd);
 
