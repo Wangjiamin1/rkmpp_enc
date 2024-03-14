@@ -49,13 +49,9 @@ include_directories(${PROJECT_SOURCE_DIR}/vproc/inc)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 
-<<<<<<< HEAD
 link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/self_utils)
 # link_directories(/home/rpdzkj/wjm/pinlingv2.3.1/pinlingv2.3/mpp_test/build/utils)
-=======
 # link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/utils)
->>>>>>> 7f8a6e9439c38b373398965d7546cd505c67732d
-
 
 
 
