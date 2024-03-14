@@ -49,8 +49,12 @@ include_directories(${PROJECT_SOURCE_DIR}/vproc/inc)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 
+<<<<<<< HEAD
 link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/self_utils)
 # link_directories(/home/rpdzkj/wjm/pinlingv2.3.1/pinlingv2.3/mpp_test/build/utils)
+=======
+# link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/utils)
+>>>>>>> 7f8a6e9439c38b373398965d7546cd505c67732d
 
 
 
@@ -68,9 +72,20 @@ set(MPP_SHARED ${MPP_PROJECT_NAME})
 
 set(CMAKE_INSTALL_PREFIX "./install/")
 
+set(SRC_FILES 
+src/camera_source.c
+src/mpi_enc_utils.c
+src/dictionary.c
+src/iniparser.c
+src/mpp_enc_roi_utils.c
+src/mpp_opt.c
+src/utils.c
+)
+
 add_subdirectory(utils)
 
 
 add_executable(${test_name} ${file_name} mpp_event_trigger.c mpp_parse_cfg.c)
 target_link_libraries(${test_name} ${MPP_SHARED} )
 target_link_libraries(${test_name} PRIVATE self_utils)
+
