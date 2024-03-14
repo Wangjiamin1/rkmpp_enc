@@ -49,7 +49,8 @@ include_directories(${PROJECT_SOURCE_DIR}/vproc/inc)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 
-link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/utils)
+link_directories(/home/rpdzkj/env/mpp/build/linux/aarch64/self_utils)
+# link_directories(/home/rpdzkj/wjm/pinlingv2.3.1/pinlingv2.3/mpp_test/build/utils)
 
 
 
@@ -67,5 +68,9 @@ set(MPP_SHARED ${MPP_PROJECT_NAME})
 
 set(CMAKE_INSTALL_PREFIX "./install/")
 
+add_subdirectory(utils)
+
+
 add_executable(${test_name} ${file_name} mpp_event_trigger.c mpp_parse_cfg.c)
-target_link_libraries(${test_name} ${MPP_SHARED} utils)
+target_link_libraries(${test_name} ${MPP_SHARED} )
+target_link_libraries(${test_name} PRIVATE self_utils)

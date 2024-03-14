@@ -1019,13 +1019,14 @@ int enc_test_multi(MpiEncTestArgs *cmd, const char *name)
         ctxs[i].cmd = cmd;
         ctxs[i].name = name;
         ctxs[i].chn = i;
+        enc_test(&ctxs[i]);
 
-        ret = pthread_create(&ctxs[i].thd, NULL, enc_test, &ctxs[i]);
-        if (ret)
-        {
-            mpp_err("failed to create thread %d\n", i);
-            return ret;
-        }
+        // ret = pthread_create(&ctxs[i].thd, NULL, enc_test, &ctxs[i]);
+        // if (ret)
+        // {
+        //     mpp_err("failed to create thread %d\n", i);
+        //     return ret;
+        // }
     }
 
     if (cmd->frame_num < 0)
@@ -1040,8 +1041,8 @@ int enc_test_multi(MpiEncTestArgs *cmd, const char *name)
             ctxs[i].ctx.loop_end = 1;
     }
 
-    for (i = 0; i < cmd->nthreads; i++)
-        pthread_join(ctxs[i].thd, NULL);
+    // for (i = 0; i < cmd->nthreads; i++)
+    //     pthread_join(ctxs[i].thd, NULL);
 
     for (i = 0; i < cmd->nthreads; i++)
     {
@@ -1062,19 +1063,35 @@ int enc_test_multi(MpiEncTestArgs *cmd, const char *name)
     return ret;
 }
 
-int main(int argc, char **argv)
+// int main(int argc, char **argv)
+int main()
 {
     RK_S32 ret = MPP_NOK;
     MpiEncTestArgs *cmd = mpi_enc_test_cmd_get();
+    char *my_args[] = {
+        "/home/rpdzkj/wjm/pinlingv2.3.1/pinlingv2.3/mpp_test/build/mpi_enc_test", // argv[0] 通常是程序名
+        "-i",
+        "/home/rpdzkj/wjm/pinlingv2.3.1/pinlingv2.3/mpp_test/build/cif2.yuv",
+        "-w",
+        "1920",
+        "-h",
+        "1080",
+        "-t",
+        "7",
+        "-o",
+        "01.h264",
+        "-n",
+        "10"};
+    char **args = my_args;
 
     // parse the cmd option
-    ret = mpi_enc_test_cmd_update_by_args(cmd, argc, argv);
+    ret = mpi_enc_test_cmd_update_by_args(cmd, 13, args);
     if (ret)
         goto DONE;
 
     mpi_enc_test_cmd_show_opt(cmd);
 
-    ret = enc_test_multi(cmd, argv[0]);
+    ret = enc_test_multi(cmd, args[0]);
 
 DONE:
     mpi_enc_test_cmd_put(cmd);
